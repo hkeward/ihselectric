@@ -48,12 +48,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-size: 2.5em;
-  width:100%;
+  width: 100%;
   min-width: 364px;
 }
 
 #content {
-  margin-top: 30px;
+  margin: 30px;
 }
 
 body {

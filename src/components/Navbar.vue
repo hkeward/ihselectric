@@ -9,7 +9,12 @@
         <font-awesome-icon icon="bars" class="fa-xs link" />
       </div>
       <ul class="nav_list" v-bind:style="navbarStyle">
-        <li @click="toggleMenu" class="hamburger_icon" v-if="windowWidth < 450" id="hamburger_small_screen">
+        <li
+          @click="toggleMenu"
+          class="hamburger_icon"
+          v-if="windowWidth < 430"
+          id="hamburger_small_screen"
+        >
           <font-awesome-icon icon="bars" class="link" />
         </li>
         <li>
@@ -71,6 +76,7 @@ export default {
             margin: "0px",
             height: menu_height + "px",
             width: "100%",
+            "min-width": "364px",
             top: "155px",
             left: "0px",
             background: "black",
