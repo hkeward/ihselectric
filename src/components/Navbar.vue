@@ -9,6 +9,9 @@
         <font-awesome-icon icon="bars" class="fa-xs link" />
       </div>
       <ul class="nav_list" v-bind:style="navbarStyle">
+        <li @click="toggleMenu" class="hamburger_icon" v-if="windowWidth < 450" id="hamburger_small_screen">
+          <font-awesome-icon icon="bars" class="link" />
+        </li>
         <li>
           <router-link to="/about" @click="closeMenu" class="link"
             >About Us</router-link
@@ -48,9 +51,7 @@ export default {
   },
   computed: {
     navbarStyle() {
-      if (this.windowWidth > 1000) {
-        console.log("large screen");
-        console.log(this.windowWidth);
+      if (this.windowWidth > 1064) {
         return {};
       } else {
         if (this.navbarOpen === false) {
@@ -133,7 +134,7 @@ a.router-link-exact-active,
   display: none;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1064px) {
   .hamburger_icon {
     display: block;
   }
@@ -145,6 +146,18 @@ a.router-link-exact-active,
   .nav_list li {
     width: 100%;
     margin: 30px 0px;
+  }
+}
+
+@media (max-width: 430px) {
+  #nav {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #hamburger_small_screen {
+    margin: 0px;
   }
 }
 </style>

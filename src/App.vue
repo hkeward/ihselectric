@@ -27,9 +27,9 @@ export default {
     },
   },
   mounted() {
-    this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
+      this.onResize();
     });
   },
   beforeUnmount() {
@@ -48,6 +48,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-size: 2.5em;
+  width:100%;
+  min-width: 364px;
 }
 
 #content {
@@ -56,7 +58,6 @@ export default {
 
 body {
   margin: 0;
-  min-height: 100vh;
   background: url("~@/assets/background.jpeg"), #010823;
   background-repeat: no-repeat;
 }
