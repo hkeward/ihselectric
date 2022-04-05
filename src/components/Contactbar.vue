@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 #contactbar {
   background: #2c998c;
   display: flex;

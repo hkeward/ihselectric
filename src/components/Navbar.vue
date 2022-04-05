@@ -18,6 +18,11 @@
           <font-awesome-icon icon="bars" class="link" />
         </li>
         <li>
+          <router-link to="/" @click="closeMenu" class="link">
+            Home
+          </router-link>
+        </li>
+        <li>
           <router-link to="/about" @click="closeMenu" class="link"
             >About Us</router-link
           >
@@ -96,7 +101,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 #nav {
   display: flex;
   justify-content: space-between;

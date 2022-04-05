@@ -1,18 +1,23 @@
 <template>
   <contactbar :windowWidth="windowWidth" :windowHeight="windowHeight" />
   <navbar :windowWidth="windowWidth" :windowHeight="windowHeight" />
-  <router-view id="content" />
+  <div id="content-wrapper">
+    <router-view id="content" />
+    <content-footer id="footer" />
+  </div>
 </template>
 
 <script>
 import Contactbar from "@/components/Contactbar.vue";
 import Navbar from "@/components/Navbar.vue";
+import ContentFooter from "@/components/ContentFooter.vue";
 
 export default {
   name: "App",
   components: {
     Contactbar,
     Navbar,
+    ContentFooter,
   },
   data() {
     return {
@@ -42,6 +47,10 @@ export default {
 @import (css)
   url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap");
 
+html {
+  font-size: 100%;
+}
+
 #app {
   font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -50,6 +59,20 @@ export default {
   font-size: 2.5em;
   width: 100%;
   min-width: 364px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+#footer {
+  align-self: flex-end;
 }
 
 #content {
@@ -69,5 +92,9 @@ a {
 
 .icon_button:hover {
   cursor: pointer;
+}
+
+#footer {
+  width: 100%;
 }
 </style>
