@@ -10,55 +10,218 @@
       <div id="copy_sender_container">
         <input type="checkbox" id="copy_sender" v-model="copy_sender" />
         <label for="copy_sender" class="quote"
-          >Send a copy to your email address</label
+          >Send a copy to my email address</label
         >
       </div>
       <input
         v-model="sender_email"
         placeholder="Email..."
         class="quote quote_input"
+        :style="email_input_style"
       />
       <input
-        v-model="sender_subject"
-        placeholder="Subject..."
+        v-model="sender_name"
+        placeholder="Your name..."
         class="quote quote_input"
       />
       <input
         v-model="sender_phone_number"
         placeholder="Phone number..."
         class="quote quote_input"
+        :style="phone_number_input_style"
+      />
+      <input
+        v-model="subject"
+        placeholder="Subject..."
+        class="quote quote_input"
       />
       <textarea
-        v-model="sender_message"
+        v-model="message"
         placeholder="Message..."
         id="sender_message"
         class="quote quote_input"
+        :style="message_input_style"
       />
+
+      <div v-if="email_send_attempted" id="email_send_success_failure">
+        <div v-if="form_data_invalid" class="failure">
+          {{ form_validation_message }}
+        </div>
+        <div v-else-if="email_send_success" class="success">
+          Email sent successfully! We'll get back to you ASAP.
+        </div>
+        <div v-else class="failure">
+          Email send failed; try again later, or try emailing
+          <strong
+            ><u
+              ><a
+                href="mailto:ihselectric@yahoo.com?subject=Quote requested"
+                target="_blank"
+                >ihselectric@yahoo.com</a
+              ></u
+            ></strong
+          >
+          directly
+        </div>
+      </div>
     </div>
-    <button id="submit_button" @click="log_message">
+
+    <button
+      id="submit_button"
+      :data-sitekey="recaptcha_siteky"
+      class="g-recaptcha"
+      @click="send_email"
+    >
       <strong>Submit</strong>
     </button>
   </div>
 </template>
 
 <script>
+import emailjs from "emailjs-com";
+
 export default {
   name: "Emailbox",
   data() {
     return {
-      sender_email: "",
       copy_sender: false,
-      sender_subject: "",
+      sender_email: "",
+      sender_name: "",
       sender_phone_number: "",
-      sender_message: "",
+      subject: "",
+      message: "",
+      email_send_attempted: false,
+      email_send_success: undefined,
+      form_data_invalid: false,
+      form_validation_message: "",
+      email_invalid: false,
+      phone_number_invalid: false,
+      message_invalid: false,
     };
   },
+  computed: {
+    recaptcha_siteky() {
+      return process.env.VUE_APP_RECAPTCHA_SITE_KEY;
+    },
+    email_input_style() {
+      if (this.email_invalid) {
+        return {
+          "border-color": "red",
+        };
+      } else {
+        return {
+          "border-color": "transparent",
+        };
+      }
+    },
+    phone_number_input_style() {
+      if (this.phone_number_invalid) {
+        return {
+          "border-color": "red",
+        };
+      } else {
+        return {
+          "border-color": "transparent",
+        };
+      }
+    },
+    message_input_style() {
+      if (this.message_invalid) {
+        return {
+          "border-color": "red",
+        };
+      } else {
+        return {
+          "border-color": "transparent",
+        };
+      }
+    },
+  },
   methods: {
-    log_message() {
-      console.log(this.sender_email);
-      console.log(this.sender_subject);
-      console.log(this.sender_phone_number);
-      console.log(this.sender_message);
+    reset_form() {
+      this.copy_sender = false;
+      this.sender_email = "";
+      this.sender_name = "";
+      this.sender_phone_number = "";
+      this.subject = "";
+      this.message = "";
+      this.form_data_invalid = false;
+      this.form_validation_message = "";
+    },
+    check_form_data() {
+      var is_invalid = false;
+      var message = "";
+
+      if (this.copy_sender && this.sender_email === "") {
+        is_invalid = true;
+        message =
+          "If you want a copy of the email sent to you, you must fill out the email address field,";
+        this.email_invalid = true;
+      } else if (this.sender_email === "" && this.sender_phone_number === "") {
+        is_invalid = true;
+        message = "Please provide email address, phone number, or both";
+        this.email_invalid = true;
+        this.phone_number_invalid = true;
+      } else if (this.message === "") {
+        is_invalid = true;
+        message =
+          "Please write a description of the type of work you would like done";
+        this.message_invalid = true;
+      } else {
+        is_invalid = false;
+        message = "";
+      }
+
+      this.form_data_invalid = is_invalid;
+      this.form_validation_message = message;
+    },
+    async send_email(token) {
+      if (token.isTrusted) {
+        this.email_invalid = false;
+        this.phone_number_invalid = false;
+        this.message_invalid = false;
+
+        this.email_send_attempted = true;
+
+        this.check_form_data();
+        if (this.form_data_invalid) {
+          return;
+        } else {
+          var form_data = {
+            sender_email: this.sender_email,
+            sender_name: this.sender_name,
+            sender_phone_number: this.sender_phone_number,
+            subject: this.subject,
+            message: this.message,
+          };
+          if (this.copy_sender) {
+            form_data["cc_email"] = this.sender_email;
+          }
+
+          // Ensure this div is not showing before getting a response to avoid flashing an error before showing success
+          this.email_send_attempted = false;
+
+          const response = await emailjs.send(
+            process.env.VUE_APP_EMAILJS_SERVICE_ID,
+            process.env.VUE_APP_EMAILJS_TEMPLATE_ID,
+            form_data,
+            process.env.VUE_APP_EMAILJS_USER_ID
+          );
+
+          if (response.status === 200) {
+            this.email_send_success = true;
+            this.email_send_attempted = true;
+            this.reset_form();
+          } else {
+            this.email_send_success = false;
+            this.email_send_attempted = true;
+          }
+        }
+      } else {
+        this.email_send_success = false;
+        this.email_send_attempted = true;
+        console.error("Untrusted attempt at quote request; blocking.");
+      }
     },
   },
 };
@@ -101,6 +264,25 @@ export default {
   padding: 0 1em;
 }
 
+#email_send_success_failure {
+  padding-bottom: 1em;
+  font-size: 60%;
+}
+
+.success,
+.failure {
+  padding: 0.5em;
+  border-radius: 15px;
+}
+
+.success {
+  border: 3px solid lightgreen;
+}
+
+.failure {
+  border: 3px solid red;
+}
+
 .quote {
   font-family: monospace;
   font-size: 50%;
@@ -110,7 +292,8 @@ export default {
 .quote_input {
   margin: 0 0 1em 0;
   min-height: 30px;
-  border: none;
+  border-width: 2px;
+  border-color: transparent;
 }
 
 #sender_message {

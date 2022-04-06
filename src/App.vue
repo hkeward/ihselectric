@@ -76,7 +76,7 @@ html {
 }
 
 #content {
-  margin: 30px;
+  margin: 2% 5%;
 }
 
 body {

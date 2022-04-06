@@ -7,7 +7,7 @@
       <font-awesome-icon icon="phone-alt" class="fa-xs icon" />519-301-5606
     </div>
     <div v-if="windowWidth > 700" id="email">
-      <a href="mailto: ihselectric@yahoo.com">
+      <a href="mailto:ihselectric@yahoo.com" target="_blank">
         <font-awesome-icon
           icon="envelope"
           class="fa-xs icon"
