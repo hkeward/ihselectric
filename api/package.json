@@ -1,0 +1,17 @@
+{
+  "name": "ihselectric-api",
+  "version": "1.0.0",
+  "description": "Backend for the IHS Electric website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Heather Ward",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "node-mailjet": "^3.3.7"
+  }
+}

@@ -78,8 +78,6 @@
 </template>
 
 <script>
-import emailjs from "emailjs-com";
-
 export default {
   name: "Emailbox",
   data() {
@@ -193,26 +191,27 @@ export default {
             sender_phone_number: this.sender_phone_number,
             subject: this.subject,
             message: this.message,
+            copy_sender: this.copy_sender,
           };
-          if (this.copy_sender) {
-            form_data["cc_email"] = this.sender_email;
-          }
 
           // Ensure this div is not showing before getting a response to avoid flashing an error before showing success
           this.email_send_attempted = false;
 
-          const response = await emailjs.send(
-            process.env.VUE_APP_EMAILJS_SERVICE_ID,
-            process.env.VUE_APP_EMAILJS_TEMPLATE_ID,
-            form_data,
-            process.env.VUE_APP_EMAILJS_USER_ID
-          );
-
-          if (response.status === 200) {
+          try {
+            const response = await fetch("https://ihselectric/send_email", {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(form_data),
+            });
+            await response.json();
             this.email_send_success = true;
             this.email_send_attempted = true;
             this.reset_form();
-          } else {
+          } catch (e) {
+            console.error(e);
             this.email_send_success = false;
             this.email_send_attempted = true;
           }
@@ -220,7 +219,9 @@ export default {
       } else {
         this.email_send_success = false;
         this.email_send_attempted = true;
-        console.error("Untrusted attempt at quote request; blocking.");
+        console.error(
+          "Failed captcha -- untrusted attempt at quote request; blocking."
+        );
       }
     },
   },
