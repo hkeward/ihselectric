@@ -15,11 +15,11 @@ app.listen(3000, () => {
  console.log("Server running on port 3000");
 });
 
-app.get("/healthcheck", (req, res) => {
+app.get("/api/healthcheck", (req, res) => {
 	res.json({"status": "healthy"});
 });
 
-app.post("/send_email", (req, res) => {
+app.post("/api/send_email", (req, res) => {
 	console.log(`Incoming request body: ${req.body}`);
 	var post_body = {
 			"Messages":[

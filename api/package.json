@@ -4,7 +4,6 @@
   "description": "Backend for the IHS Electric website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Heather Ward",
   "license": "ISC",

@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  api:
+    image: ${IHSELECTRIC_API_IMAGE}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ihselectric.rule=Host(`ihselectric.heatherward.dev`,`www.ihselectric.heatherward.dev`) && Path(`/api`)"
+      - "traefik.http.routers.ihselectric.entrypoints=https"
+      - "traefik.http.routers.ihselectric.tls.certresolver=cloudflaredns"
+      - "traefik.http.services.ihselectric.loadbalancer.server.port=3000"
+    networks:
+      - proxy
+  frontend:
+    image: ${IHSELECTRIC_FRONTEND_IMAGE}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ihselectric.rule=Host(`ihselectric.heatherward.dev`,`www.ihselectric.heatherward.dev`)"
+      - "traefik.http.routers.ihselectric.entrypoints=https"
+      - "traefik.http.routers.ihselectric.tls.certresolver=cloudflaredns"
+      - "traefik.http.services.ihselectric.loadbalancer.server.port=80"
+    networks:
+      - proxy
+    volumes:
+      - ${IHSELECTRIC_SRV_BASE}/sites-available:/etc/nginx/sites-enabled
+networks:
+  proxy:
+    external: true

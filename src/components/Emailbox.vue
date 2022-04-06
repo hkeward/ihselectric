@@ -198,14 +198,17 @@ export default {
           this.email_send_attempted = false;
 
           try {
-            const response = await fetch("https://ihselectric/send_email", {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(form_data),
-            });
+            const response = await fetch(
+              `${process.env.VUE_APP_BASE_URL}/api/send_email`,
+              {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form_data),
+              }
+            );
             await response.json();
             this.email_send_success = true;
             this.email_send_attempted = true;
@@ -224,6 +227,14 @@ export default {
         );
       }
     },
+  },
+  mounted() {
+    let recaptchaScript = document.createElement("script");
+    recaptchaScript.setAttribute(
+      "src",
+      "https://www.google.com/recaptcha/api.js"
+    );
+    document.head.appendChild(recaptchaScript);
   },
 };
 </script>
