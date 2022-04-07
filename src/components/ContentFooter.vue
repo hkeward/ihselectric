@@ -1,7 +1,11 @@
 <template>
   <div id="footer">
-    <div>IHS Electric ꞏ 519-301-5605</div>
-    <div>ihselectric@yahoo.com</div>
+    <div id="footer_company_info" class="footer_element">
+      <div>IHS Electric</div>
+      <div>ꞏ</div>
+      <div>519-301-5605</div>
+    </div>
+    <div class="footer_element">ihselectric@yahoo.com</div>
   </div>
 </template>
 
@@ -19,6 +23,17 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+}
+
+.footer_element {
+  margin: 8px 0;
+  font-size: 80%;
+}
+
+#footer_company_info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Build files
 docker/**/target
+
+# Gallery assets
+src/assets/gallery/*

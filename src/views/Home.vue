@@ -50,7 +50,6 @@ export default {
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0 15px;
 }
 
 #main_image_container {

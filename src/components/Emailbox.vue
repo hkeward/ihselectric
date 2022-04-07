@@ -245,7 +245,6 @@ export default {
   background: #2c998c;
   display: flex;
   flex-direction: column;
-  min-width: 364px;
 }
 
 #email_header,

@@ -18,8 +18,8 @@
             <strong
               ><a href="mailto:ihselectric@yahoo.com" target="_blank"
                 >ihselectric@yahoo.com
-                <font-awesome-icon icon="envelope" class="fa-xs icon" /></a
-            ></strong>
+              </a></strong
+            >
             (or fill out the contact form below to request a quote)
           </p>
           <p>
