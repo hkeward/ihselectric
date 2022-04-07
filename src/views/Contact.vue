@@ -14,10 +14,17 @@
         <div>
           <h4>Contact information</h4>
           <p>
-            Email: ihselectric@yahoo.com (or fill out the contact form below to
-            request a quote)
+            Email:
+            <strong
+              ><a href="mailto:ihselectric@yahoo.com" target="_blank"
+                >ihselectric@yahoo.com
+                <font-awesome-icon icon="envelope" class="fa-xs icon" /></a
+            ></strong>
+            (or fill out the contact form below to request a quote)
           </p>
-          <p>Phone: 519-301-5606</p>
+          <p>
+            Phone: <strong><a href="tel:519-301-5606"> 519-301-5606</a></strong>
+          </p>
         </div>
       </div>
       <br />

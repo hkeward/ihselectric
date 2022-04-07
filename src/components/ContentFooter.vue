@@ -15,10 +15,10 @@ export default {
 #footer {
   background-color: rgba(44, 153, 140, 0.5);
   font-size: 100%;
-  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 15px;
 }
 </style>

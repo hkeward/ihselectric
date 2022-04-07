@@ -4,41 +4,60 @@
       <h3>Gallery</h3>
     </div>
     <div id="gallery_content">
-      <img
-        class="image"
-        v-for="(image, i) in images"
-        :src="image"
-        :key="i"
-        @click="index = i"
-      />
-      <vue-gallery-slideshow
+      <ImageGallery
         :images="images"
         :index="index"
+        :disable-scroll="true"
         @close="index = null"
-      ></vue-gallery-slideshow>
+      />
+
+      <ul>
+        <li
+          v-for="(image, imageIndex) in images"
+          :key="imageIndex"
+          @click="index = imageIndex"
+        >
+          <img :src="image.src" />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import VueGallerySlideshow from "vue-gallery-slideshow";
+import ImageGallery from "@/components/ImageGallery.vue";
 
 export default {
   name: "Gallery",
-  components: {
-    VueGallerySlideshow,
-  },
   data() {
     return {
       images: [
-        "https://placekitten.com/801/800",
-        "https://placekitten.com/802/800",
-        "https://placekitten.com/803/800",
-        "https://placekitten.com/804/800",
-        "https://placekitten.com/805/800",
+        {
+          title: "kitten 1",
+          src: "https://placekitten.com/801/800",
+        },
+        {
+          title: "kitten 2",
+          src: "https://placekitten.com/802/800",
+        },
+        {
+          title: "kitten 3",
+          src: "https://placekitten.com/803/800",
+        },
+        {
+          title: "kitten 4",
+          src: "https://placekitten.com/804/800",
+        },
+        {
+          title: "kitten 5",
+          src: "https://placekitten.com/805/800",
+        },
       ],
       index: null,
     };
+  },
+  components: {
+    ImageGallery,
   },
 };
 </script>
