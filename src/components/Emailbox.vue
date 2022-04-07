@@ -153,7 +153,7 @@ export default {
       if (this.copy_sender && this.sender_email === "") {
         is_invalid = true;
         message =
-          "If you want a copy of the email sent to you, you must fill out the email address field,";
+          "If you want a copy of the email sent to you, you must fill out the email address field";
         this.email_invalid = true;
       } else if (this.sender_email === "" && this.sender_phone_number === "") {
         is_invalid = true;

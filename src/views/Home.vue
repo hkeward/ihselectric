@@ -2,13 +2,22 @@
   <div>
     <div id="bio_container">
       <div id="bio">
-        <img
-          src="~@/assets/dave.jpg"
-          style="border-radius: 50%; max-width: 320px"
-        />
-        <br />
-        Master electrician <strong>Dave Schwartzentruber</strong> can keep you
-        wired!
+        <div id="main_image">
+          <img src="~@/assets/dave_pit.jpg" style="max-width: 320px" />
+        </div>
+        <div id="home_details_wrapper">
+          <h5 style="margin-top: 0">
+            Master electrician Dave Schwartzentruber can keep you wired!
+          </h5>
+          <p id="home_details">
+            With 30 years of experience, Dave with the addition of his
+            apprentice, deliver quality craftsmanship with an eye for detail.
+            Having specialized for years in the rewiring of older homes and
+            experience in new developments, IHS Electric can help meet a wide
+            array of needs. Serving the greater Stratford and KW area since
+            1992.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -42,8 +51,25 @@ export default {
 }
 
 #bio {
+  display: flex;
+  flex-direction: row;
   margin-right: 50px;
   margin-bottom: 50px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#main_image {
+  margin-right: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#main_image,
+#home_details_wrapper {
+  flex: 1;
 }
 
 #emailbox_container {
@@ -55,5 +81,14 @@ export default {
 
 #emailbox {
   flex-grow: 1;
+}
+
+#home_details {
+  font-size: 65%;
+}
+
+#home_details_wrapper {
+  display: flex;
+  flex-direction: column;
 }
 </style>

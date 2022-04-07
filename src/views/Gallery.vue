@@ -1,7 +1,7 @@
 <template>
   <div id="gallery">
     <div id="gallery_header">
-      <h1>Gallery</h1>
+      <h3>Gallery</h3>
     </div>
   </div>
 </template>

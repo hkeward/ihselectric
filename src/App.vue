@@ -45,14 +45,14 @@ export default {
 
 <style lang="less">
 @import (css)
-  url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap");
+  url("https://fonts.googleapis.com/css2?family=Lora&family=Send+Flowers&family=Share+Tech+Mono&display=swap");
 
 html {
   font-size: 100%;
 }
 
 #app {
-  font-family: "Raleway", sans-serif;
+  font-family: "Lora", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -81,8 +81,7 @@ html {
 
 body {
   margin: 0;
-  background: url("~@/assets/background.jpeg"), #010823;
-  background-repeat: no-repeat;
+  background: #ecc554;
 }
 
 a {
