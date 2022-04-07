@@ -4,7 +4,9 @@
       id="phone_number"
       v-bind:style="windowWidth < 700 ? 'flex: 1;' : 'flex: unset;'"
     >
-      <font-awesome-icon icon="phone-alt" class="fa-xs icon" />519-301-5606
+      <a href="tel:519-301-5606">
+        <font-awesome-icon icon="phone-alt" class="fa-xs icon" />519-301-5606
+      </a>
     </div>
     <div v-if="windowWidth > 700" id="email">
       <a href="mailto:ihselectric@yahoo.com" target="_blank">
