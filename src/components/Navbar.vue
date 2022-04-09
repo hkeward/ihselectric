@@ -8,7 +8,7 @@
       <div @click="toggleMenu" class="hamburger_icon">
         <font-awesome-icon icon="bars" class="fa-xs link" />
       </div>
-      <ul class="nav_list" v-bind:style="navbarStyle">
+      <ul class="nav_list" v-bind:style="navbarStyle" @click="closeMenu">
         <li
           @click="toggleMenu"
           class="hamburger_icon"
@@ -17,31 +17,32 @@
         >
           <font-awesome-icon icon="bars" class="link" />
         </li>
+        <router-link to="/" @click="closeMenu" class="link">
+
         <li>
-          <router-link to="/" @click="closeMenu" class="link">
             Home
+        </li>
           </router-link>
-        </li>
+          <router-link to="/about" @click="closeMenu" class="link">
         <li>
-          <router-link to="/about" @click="closeMenu" class="link"
-            >About Us</router-link
-          >
+            About Us
         </li>
+          </router-link>
+          <router-link to="/services" @click="closeMenu" class="link">
         <li>
-          <router-link to="/services" @click="closeMenu" class="link"
-            >Services</router-link
-          >
+            Services
         </li>
+          </router-link>
+          <router-link to="/gallery" @click="closeMenu" class="link">
         <li>
-          <router-link to="/gallery" @click="closeMenu" class="link"
-            >Gallery</router-link
-          >
+            Gallery
         </li>
+          </router-link>
+          <router-link to="/contact" @click="closeMenu" class="link">
         <li>
-          <router-link to="/contact" @click="closeMenu" class="link"
-            >Contact Us</router-link
-          >
+            Contact Us
         </li>
+          </router-link>
       </ul>
     </div>
   </div>
@@ -69,12 +70,9 @@ export default {
             display: "none",
           };
         } else {
-          var menu_height;
-          if (this.windowHeight < 550) {
-            menu_height = 550;
-          } else {
-            menu_height = this.windowHeight - 155;
-          }
+          var menu_height = Math.max(this.windowHeight, document.body.scrollHeight, document.body.offsetHeight) - 155;
+
+
           return {
             position: "absolute",
             padding: "0px",
@@ -85,6 +83,7 @@ export default {
             top: "155px",
             left: "0px",
             background: "black",
+            opacity: "90%",
           };
         }
       }

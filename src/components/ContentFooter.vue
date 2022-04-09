@@ -3,9 +3,9 @@
     <div id="footer_company_info" class="footer_element">
       <div>IHS Electric</div>
       <div>ꞏ</div>
-      <div>519-301-5605</div>
+      <a href="tel:519-301-5606"><div>519-301-5605</div></a>
     </div>
-    <div class="footer_element">ihselectric@yahoo.com</div>
+    <div class="footer_element"><a href="mailto:ihselectric@yahoo.com" target="_blank">ihselectric@yahoo.com</a></div>
   </div>
 </template>
 
