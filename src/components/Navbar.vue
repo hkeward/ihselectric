@@ -18,31 +18,20 @@
           <font-awesome-icon icon="bars" class="link" />
         </li>
         <router-link to="/" @click="closeMenu" class="link">
-
-        <li>
-            Home
-        </li>
-          </router-link>
-          <router-link to="/about" @click="closeMenu" class="link">
-        <li>
-            About Us
-        </li>
-          </router-link>
-          <router-link to="/services" @click="closeMenu" class="link">
-        <li>
-            Services
-        </li>
-          </router-link>
-          <router-link to="/gallery" @click="closeMenu" class="link">
-        <li>
-            Gallery
-        </li>
-          </router-link>
-          <router-link to="/contact" @click="closeMenu" class="link">
-        <li>
-            Contact Us
-        </li>
-          </router-link>
+          <li>Home</li>
+        </router-link>
+        <router-link to="/about" @click="closeMenu" class="link">
+          <li>About Us</li>
+        </router-link>
+        <router-link to="/services" @click="closeMenu" class="link">
+          <li>Services</li>
+        </router-link>
+        <router-link to="/gallery" @click="closeMenu" class="link">
+          <li>Gallery</li>
+        </router-link>
+        <router-link to="/contact" @click="closeMenu" class="link">
+          <li>Contact Us</li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -70,8 +59,12 @@ export default {
             display: "none",
           };
         } else {
-          var menu_height = Math.max(this.windowHeight, document.body.scrollHeight, document.body.offsetHeight) - 155;
-
+          var menu_height =
+            Math.max(
+              this.windowHeight,
+              document.body.scrollHeight,
+              document.body.offsetHeight
+            ) - 155;
 
           return {
             position: "absolute",

@@ -4,66 +4,73 @@
       <h3>Gallery</h3>
     </div>
     <div id="gallery_content">
-      <ImageGallery
+      <ImageDetail
         :images="images"
         :index="index"
         :disable-scroll="true"
         @close="index = null"
       />
 
-      <ul>
-        <li
+      <div id="image_thumbs">
+        <div
+          class="image_container"
           v-for="(image, imageIndex) in images"
           :key="imageIndex"
           @click="index = imageIndex"
         >
           <img :src="image.src" />
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ImageGallery from "@/components/ImageGallery.vue";
+import ImageDetail from "@/components/ImageDetail.vue";
 
 export default {
   name: "Gallery",
   data() {
     return {
-      images: [
-        {
-          title: "kitten 1",
-          src: "https://placekitten.com/801/800",
-        },
-        {
-          title: "kitten 2",
-          src: "https://placekitten.com/802/800",
-        },
-        {
-          title: "kitten 3",
-          src: "https://placekitten.com/803/800",
-        },
-        {
-          title: "kitten 4",
-          src: "https://placekitten.com/804/800",
-        },
-        {
-          title: "kitten 5",
-          src: "https://placekitten.com/805/800",
-        },
-      ],
+      images: [],
       index: null,
     };
   },
   components: {
-    ImageGallery,
+    ImageDetail,
+  },
+  methods: {
+    importAll(r) {
+      r.keys().forEach((key) =>
+        this.images.push({ src: r(key), pathShort: key })
+      );
+    },
+  },
+  mounted() {
+    this.importAll(require.context("../assets/gallery/", true, /\.jp(e|)g$/));
   },
 };
 </script>
 
-<style>
+<style scoped>
 #gallery_header {
   text-align: left;
+}
+
+#image_thumbs {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 15px;
+}
+
+.image_container {
+  flex: 1;
+}
+
+.image_container > img {
+  min-width: 200px;
+  max-width: 100%;
+  border-radius: 8px;
 }
 </style>
