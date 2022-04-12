@@ -8,9 +8,20 @@ import {
   faPhoneAlt,
   faEnvelope,
   faBars,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPhoneAlt, faEnvelope, faBars);
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+
+library.add(
+  faPhoneAlt,
+  faEnvelope,
+  faBars,
+  faArrowLeft,
+  faArrowRight,
+  faCircleXmark
+);
 
 createApp(App)
   .use(store)
