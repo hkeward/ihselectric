@@ -1,9 +1,17 @@
 <template>
-  <contactbar :windowWidth="windowWidth" :windowHeight="windowHeight" />
-  <navbar :windowWidth="windowWidth" :windowHeight="windowHeight" />
-  <div id="content-wrapper">
-    <router-view id="content" />
-    <content-footer id="footer" />
+  <div id="scroll_area">
+    <div id="main_content">
+      <contactbar :windowWidth="windowWidth" :windowHeight="windowHeight" />
+      <navbar :windowWidth="windowWidth" :windowHeight="windowHeight" />
+      <div id="content-wrapper">
+        <router-view id="content" />
+        <content-footer id="footer" />
+      </div>
+    </div>
+    <div
+      id="scrollbar_margin"
+      :style="{ 'min-width': scrollbar_width + 'px' }"
+    ></div>
   </div>
 </template>
 
@@ -23,12 +31,31 @@ export default {
     return {
       windowWidth: 0,
       windowHeight: 0,
+      scrollbar_width: 0,
     };
   },
   methods: {
     onResize() {
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerHeight;
+
+      // From https://stackoverflow.com/a/59530904
+      // Creating invisible container
+      const outer = document.createElement("div");
+      outer.style.visibility = "hidden";
+      outer.style.overflow = "scroll"; // forcing scrollbar to appear
+      outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+      document.body.appendChild(outer);
+
+      // Creating inner element and placing it in the container
+      const inner = document.createElement("div");
+      outer.appendChild(inner);
+
+      // Calculating difference between container's full width and the child width
+      this.scrollbar_width = outer.offsetWidth - inner.offsetWidth;
+
+      // Removing temporary elements from the DOM
+      outer.parentNode.removeChild(outer);
     },
   },
   mounted() {
@@ -62,6 +89,20 @@ html {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+#scroll_area {
+  display: flex;
+}
+
+#main_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#scrollbar_margin {
+  display: none;
 }
 
 #content-wrapper {
