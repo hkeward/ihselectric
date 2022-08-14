@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ihselectric_api.rule=Host(`ihselectric.heatherward.dev`,`www.ihselectric.heatherward.dev`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.ihselectric_api.rule=Host(`${BASE_URL}`,`www.${BASE_URL}`) && PathPrefix(`/api`)"
       - "traefik.http.routers.ihselectric_api.entrypoints=https"
       - "traefik.http.routers.ihselectric_api.tls.certresolver=cloudflaredns"
       - "traefik.http.services.ihselectric_api.loadbalancer.server.port=3000"
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ihselectric.rule=Host(`ihselectric.heatherward.dev`,`www.ihselectric.heatherward.dev`)"
+      - "traefik.http.routers.ihselectric.rule=Host(`${BASE_URL}`,`www.${BASE_URL}`)"
       - "traefik.http.routers.ihselectric.entrypoints=https"
       - "traefik.http.routers.ihselectric.tls.certresolver=cloudflaredns"
       - "traefik.http.services.ihselectric.loadbalancer.server.port=80"

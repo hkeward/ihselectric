@@ -22,6 +22,7 @@ Email forwarding is set up via CloudFlare to enable employees to receive emails 
 > .env
 ```bash
 VUE_APP_RECAPTHCA_SITE_KEY
+BASE_URL
 VUE_APP_BASE_URL
 IHSELECTRIC_FRONTEND_IMAGE=ihselectric-front:latest
 IHSELECTRIC_API_IMAGE=ihselectric-api:latest

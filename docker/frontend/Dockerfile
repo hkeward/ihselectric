@@ -15,6 +15,8 @@ RUN npm run build
 FROM debian:stretch
 COPY --from=builder /build/dist /var/www/html
 
+ENV APP_NAME "IHS Electric"
+
 RUN apt-get -qq update && \
 	apt-get -qq install \
 	nginx \
@@ -29,5 +31,7 @@ RUN apt-get -qq update && \
 	libnginx-mod-http-xslt-filter \
 	libnginx-mod-mail \
 	libnginx-mod-stream
+
+RUN sed -i "s~Vue App~${APP_NAME}~g" /var/www/html/index.html
 
 CMD ["nginx", "-g", "daemon off;"]
