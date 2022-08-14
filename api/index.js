@@ -4,6 +4,8 @@ const dotenv = require("dotenv").config();
 
 const mailjet_apikey_public = process.env.MAILJET_APIKEY_PUBLIC;
 const mailjet_apikey_private = process.env.MAILJET_APIKEY_PRIVATE;
+const bcc_email = process.env.BCC_EMAIL;
+const bcc_name = process.env.BCC_NAME;
 
 const mailjet = require ('node-mailjet').connect(mailjet_apikey_public, mailjet_apikey_private);
 
@@ -32,6 +34,12 @@ app.post("/api/send_email", (req, res) => {
 						{
 							"Email": "sitemaster@ihselectric.ca",
 							"Name": "IHS Electric"
+						},
+					],
+					"BCC": [
+						{
+							"Email": bcc_email,
+							"Name": bcc_name
 						}
 					],
 					"TemplateID": 3850008,
@@ -48,7 +56,7 @@ app.post("/api/send_email", (req, res) => {
 		}
 
 	if (req.body.copy_sender === true) {
-		post_body["Messages"][0]["Cc"] = [{"Email": req.body.sender_email, "Name": req.body.sender_name}];
+		post_body["Messages"][0]["CC"] = [{"Email": req.body.sender_email, "Name": req.body.sender_name}];
 	};
 
 	const request = mailjet
